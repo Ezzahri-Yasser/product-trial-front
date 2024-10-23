@@ -1,0 +1,50 @@
+<div class="container mt-5">
+    <h2>Contactez-nous</h2>
+    <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" novalidate>
+      <!-- Champ pour l'email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          [(ngModel)]="email"
+          required
+          #emailInput="ngModel"
+        />
+        <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
+          L'email est requis.
+        </div>
+      </div>
+  
+      <!-- Champ pour le message -->
+      <div class="form-group mt-3">
+        <label for="message">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          class="form-control"
+          [(ngModel)]="message"
+          maxlength="300"
+          required
+          #messageInput="ngModel"
+        ></textarea>
+        <small class="form-text text-muted">Le message doit contenir moins de 300 caractères.</small>
+        <div *ngIf="messageInput.invalid && messageInput.touched" class="text-danger">
+          Le message est requis et ne doit pas dépasser 300 caractères.
+        </div>
+      </div>
+  
+      <!-- Bouton Envoyer -->
+      <button type="submit" class="btn btn-primary mt-3" [disabled]="contactForm.invalid">
+        Envoyer
+      </button>
+    </form>
+  
+    <!-- Message de succès -->
+    <div *ngIf="successMessage" class="alert alert-success mt-3">
+      {{ successMessage }}
+    </div>
+  </div>
+  

@@ -1,0 +1,55 @@
+<form #form="ngForm" (ngSubmit)="onSave()">
+    <!-- Other form fields -->
+  
+    <div class="form-field">
+      <label for="name">Nom</label>
+      <input pInputText
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="editedProduct().name"
+        required>
+    </div>
+  
+    <div class="form-field">
+      <label for="price">Prix</label>
+      <p-inputNumber 
+        [(ngModel)]="editedProduct().price" 
+        name="price"
+        mode="decimal"
+        required/> 
+    </div>
+  
+    <div class="form-field">
+      <label for="description">Description</label>
+      <textarea pInputTextarea 
+        id="description"
+        name="description"
+        rows="5" 
+        cols="30" 
+        [(ngModel)]="editedProduct().description">
+      </textarea>
+    </div>
+  
+    <div class="form-field">
+      <label for="category">Catégorie</label>
+      <p-dropdown 
+        [options]="categories" 
+        [(ngModel)]="editedProduct().category" 
+        name="category"
+        appendTo="body"
+      />
+    </div>
+  
+    <!-- New file input for image upload -->
+    <div class="form-field">
+      <label for="image">Image</label>
+      <input type="file" (change)="onImageChange($event)" />
+    </div>
+  
+    <div class="flex justify-content-between">
+      <p-button type="button" (click)="onCancel()" label="Annuler" severity="help"/>
+      <p-button type="submit" [disabled]="!form.valid" label="Enregistrer" severity="success"/>
+    </div>
+  </form>
+  

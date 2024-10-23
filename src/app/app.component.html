@@ -1,0 +1,44 @@
+<p-toolbar [style]="{ height: '100px' }">
+    <div class="p-toolbar-group-start">
+      <img src="assets/icons/icon-72x72.png" alt="logo" />
+    </div>
+    <div class="p-toolbar-group-center">
+      {{ title }}
+    </div>
+    <div class="p-toolbar-group-end">
+      <i class="pi pi-shopping-cart" style="font-size: 2rem; cursor: pointer" (click)="toggleCart()"></i>
+      <!-- Cart Dropdown -->
+      <div *ngIf="cartVisible" class="cart-dropdown">
+        <h3>Your Cart</h3>
+        <ul *ngIf="cart.length > 0; else emptyCart" class="cart-list">
+          <li *ngFor="let product of cart" class="cart-item">
+            <div class="cart-item-image">
+              <img [src]="'data:image/jpeg;base64,' + product.image" alt="{{ product.name }}">
+            </div>
+            <div class="cart-item-details">
+              <h4>{{ product.name }}</h4>
+              <p class="price">{{ product.price | currency }}</p> 
+              <button class="btn btn-danger btn-sm" (click)="removeFromCart(product)">Remove</button>
+            </div>
+          </li>
+        </ul>
+        <ng-template #emptyCart>
+          <p>Your cart is empty</p>
+        </ng-template>
+      </div>
+    </div>
+  </p-toolbar>
+  
+  <p-splitter [panelSizes]="[20, 80]" [style]="{ height: 'calc(100vh - 100px)' }">
+    <ng-template pTemplate>
+      <div class="w-full">
+        <app-panel-menu></app-panel-menu>
+      </div>
+    </ng-template>
+    <ng-template pTemplate>
+      <div class="w-full app-content">
+        <router-outlet></router-outlet>
+      </div>
+    </ng-template>
+  </p-splitter>
+  
